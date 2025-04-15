@@ -42,18 +42,19 @@ We show that two circular disks of radii $r_1$, $r_2$ centered at $x_1$, $x_2 \i
 
 \subsection*{(b) Optimization Model Formulation}
 
-Let $m$ sphere, each of fixed radius $r_i$, be placed in a box centered at the origin, with variable half-length $R > 0$. Let $(x_i, y_i)$ be the center of disk $i$.
+Let $m$ sphere, each of fixed radius $r_i$, be placed in a box centered at the origin, with variable half-length $R > 0$. Let $\mathbf{x}_i$ be the center of disk $i$.
 
+% ones vector: $
 \paragraph{Variables:}
 \begin{itemize}[noitemsep]
-    \item $(x_i, y_i, ...)$ for $i = 1, \dots, m$
+    \item $\mathbf{x}_i$ for $i = 1, \dots, m$
     \item $R > 0$: half-size of the enclosing box (to minimize)
 \end{itemize}
 
 \paragraph{Constraints:}
 \begin{align*}
-    & \text{Containment: } && -R + r_i \leq x_i, y_i, ... \leq R - r_i \quad \forall i \\
-    & \text{Non-overlap: } && \|x_i - x_j\|_2^2 \geq (r_i + r_j)^2 \quad \forall i < j
+    & \text{Containment: } && -R + r_i\mathbf{1} \leq \mathbf{x_i} \leq R - r_i\mathbf{1}  \quad \forall i \\
+    & \text{Non-overlap: } && \|\mathbf{x}_i - \mathbf{x}_j\|_2^2 \geq (r_i + r_j)^2 \quad \forall i < j
 \end{align*}
 
 \paragraph{Objective:}
