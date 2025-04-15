@@ -42,18 +42,18 @@ We show that two circular disks of radii $r_1$, $r_2$ centered at $x_1$, $x_2 \i
 
 \subsection*{(b) Optimization Model Formulation}
 
-Let $m$ disks of fixed radius $r$ be placed in a square centered at the origin, with variable half-length $R > 0$. Let $(x_i, y_i)$ be the center of disk $i$.
+Let $m$ sphere, each of fixed radius $r_i$, be placed in a box centered at the origin, with variable half-length $R > 0$. Let $(x_i, y_i)$ be the center of disk $i$.
 
 \paragraph{Variables:}
 \begin{itemize}[noitemsep]
-    \item $(x_i, y_i)$ for $i = 1, \dots, m$
-    \item $R > 0$: half-size of the enclosing square (to minimize)
+    \item $(x_i, y_i, ...)$ for $i = 1, \dots, m$
+    \item $R > 0$: half-size of the enclosing box (to minimize)
 \end{itemize}
 
 \paragraph{Constraints:}
 \begin{align*}
-    & \text{Containment: } && -R + r \leq x_i, y_i \leq R - r \quad \forall i \\
-    & \text{Non-overlap: } && \|x_i - x_j\|_2^2 \geq (2r)^2 \quad \forall i < j
+    & \text{Containment: } && -R + r_i \leq x_i, y_i, ... \leq R - r_i \quad \forall i \\
+    & \text{Non-overlap: } && \|x_i - x_j\|_2^2 \geq (r_i + r_j)^2 \quad \forall i < j
 \end{align*}
 
 \paragraph{Objective:}
@@ -65,7 +65,7 @@ This is a nonconvex quadratic optimization since some convex combinations of opt
 
 \subsection*{(c) Code Implementation and Results}
 
-We used \texttt{gurobipy} with the \texttt{NonConvex} flag to solve this model for $m=5$ and $m=6$, with $r=1$. The optimal $R$ values obtained are:
+We used \texttt{gurobipy} with the \texttt{NonConvex} flag to solve this model for $\mathbb{R}^2$, $m=5$ and $m=6$, with $r=1$. The optimal $R$ values obtained are:
 
 \begin{itemize}
     \item $m=5$: $R^* = 2.414$
@@ -87,6 +87,5 @@ Due to the non-convex nature of the problem, multiple local minima may exist. Th
 \hrule
 \vspace{1em}
 \noindent Code, plots, and full writeup available at:  
-\texttt{\href{https://github.com/smorales/math258a-hw1}{github.com/smorales/math258a-hw1}}
-
+\texttt{\href{https://github.com/smoralesduarte/mat258a/blob/main/spheres.ipynb}{https://github.com/smoralesduarte/mat258a}}
 \end{document}
