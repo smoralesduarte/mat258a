@@ -53,7 +53,7 @@ Let $m$ spheres, each of fixed radius $r_i$, be placed in a box centered at the 
 
 \paragraph{Constraints:}
 \begin{align*}
-    & \text{Containment: } && -R + r_i\mathbf{1} \leq \mathbf{x_i} \leq R - r_i\mathbf{1}  \quad \forall i \\
+    & \text{Containment: } && (-R + r_i)\mathbf{1} \leq \mathbf{x_i} \leq (R - r_i)\mathbf{1}  \quad \forall i \\
     & \text{Non-overlap: } && \|\mathbf{x}_i - \mathbf{x}_j\|_2^2 \geq (r_i + r_j)^2 \quad \forall i < j
 \end{align*}
 
@@ -82,7 +82,7 @@ We used \texttt{gurobipy} with the \texttt{NonConvex} flag to solve this model f
 
 \subsection*{(d) Uniqueness Discussion}
 
-Due to the non-convex nature of the problem, multiple local minima may exist. The solution is not necessarily unique. Different initial guesses or solver tolerances may lead to different (but equally optimal) configurations.
+Due to the non-convex nature of the problem, multiple local minima may exist. The solution is not necessarily unique. For example, the right image is not symmetric, but the reflexion accross the vertical axis should also be an optimal solution. Different initial guesses or solver tolerances may lead to different (but equally optimal) configurations.
 
 \vspace{1em}
 \hrule
