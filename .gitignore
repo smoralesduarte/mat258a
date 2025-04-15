@@ -172,3 +172,15 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Latex
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.idx
+*.ilg
+*.out
+*.log
+*.gz
+
