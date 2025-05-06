@@ -1,0 +1,131 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\usepackage{biblatex}
+\newtheorem*{problem*}{Problem}
+\newtheorem*{solution}{Solution}
+
+
+\geometry{letterpaper, margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{MATH 258A — Spring 2025}
+\lhead{Santiago Morales}
+\rfoot{Page \thepage}
+
+\title{\vspace{-1cm} \textbf{Homework 4, MAT 258A}}
+\author{Santiago Morales \\ UC Davis \\ \texttt{moralesduarte@ucdavis.edu}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\vspace{-1em}
+\hrule
+\vspace{1em}
+
+We rewrite the task as optimisation problem
+        \[
+        \min_{(x,y)\in\mathbb R^2}\;f(x,y):=(x-1)^2+(y-2)^2
+        \quad\text{s.t.}\quad 
+        g(x,y):=y-\tfrac15\,(x-1)^2=0 .
+        \]
+        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \paragraph{(a) KKT points, LICQ and optimality.}
+        The Lagrangian is
+        \[
+        \mathcal L(x,y,\lambda)=f(x,y)+\lambda\,g(x,y)
+                           =(x-1)^2+(y-2)^2+\lambda\Bigl(y-\tfrac15(x-1)^2\Bigr).
+        \]
+        Stationarity gives
+        \[
+        \partial_x\mathcal L: \; 2(x-1)-\tfrac25\lambda(x-1)=0,
+        \qquad
+        \partial_y\mathcal L:\; 2(y-2)+\lambda=0 .
+        \]
+        Hence
+        \[
+        (x-1)\bigl(2-\tfrac25\lambda\bigr)=0,\qquad y=2-\tfrac{\lambda}{2}.
+        \]
+        
+        \emph{Case 1: \(x=1\).}  
+        Then \(y=0\) from the constraint, and \(\lambda=4\).  
+        \emph{Case 2: \(\lambda=5\).}  
+        Then \(y=-\tfrac12\), but the constraint would require \(y=-\tfrac12=(1/5)(x-1)^2\), i.e.\ \((x-1)^2=-\tfrac52\), impossible.  
+        
+        Thus the only KKT point is \((x^\star,y^\star)=(1,0)\) with \(\lambda^\star=4\).
+        
+        Because \(\nabla g(1,0)=\bigl(0,1\bigr)\neq0\), the gradient of the active constraint is linearly independent, so the LICQ holds.  Since this is the \emph{only} feasible stationary point, it must be the unique candidate for optimality.
+        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \paragraph{Second–order test (for completeness).}
+        The Hessian of the Lagrangian is
+        \(
+        \nabla^2_{xx}\!\mathcal L=2I+\lambda
+        \begin{pmatrix}-\tfrac25&0\\[2pt]0&0\end{pmatrix}.
+        \)
+        At \((1,0,\lambda^\star)\) this is 
+        \(\operatorname{diag}\bigl(\tfrac25,2\bigr)\).
+        The tangent space of the constraint is 
+        \(T=\{v\in\mathbb R^2:\nabla g^\top v=0\}=\{(v_x,0)\}\).
+        For every non‑zero \(v\in T\),
+        \(v^\top\nabla^2_{xx}\mathcal L\,v=\tfrac25\,v_x^{2}>0\).
+        Hence the \emph{second–order sufficient} condition holds and
+        \((1,0)\) is a strict local (therefore global) minimiser.
+        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \paragraph{(b) Lagrange dual problem and SOSC.}
+        Define the dual function
+        \(q(\lambda)=\inf_{x,y}\mathcal L(x,y,\lambda)\).
+        From the stationarity equations we saw that for every \(\lambda\neq5\)
+        the minimiser is \(x=1,\;y=2-\lambda/2\), yielding
+        \[
+        q(\lambda)=2\lambda-\tfrac14\lambda^{2},\qquad \lambda\in\mathbb R.
+        \]
+        (The formula also gives \(q(5)=\tfrac{15}{4}\).)
+        Thus the dual problem is
+        \[
+        \max_{\lambda\in\mathbb R}\; 2\lambda-\tfrac14\lambda^{2},
+        \]
+        a concave quadratic attaining its maximum at \(\lambda^\star=4\)
+        with value \(q(4)=4\), which equals the primal optimum \(f(1,0)=4\);
+        strong duality holds.
+        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \paragraph{(c) Eliminating the constraint.}
+        Setting \(y=\tfrac15(x-1)^2\) and substituting gives the single‑variable
+        problem
+        \[
+        \min_{x\in\mathbb R}\;h(x):=(x-1)^2+\Bigl(\tfrac15(x-1)^2-2\Bigr)^{\!2}.
+        \]
+        Writing \(s:=(x-1)^2\ge 0\) we obtain
+        \(h(s)=\frac{1}{25}\,s^{2}+\frac{1}{5}s+4\), whose minimum on \([0,\infty)\) occurs at
+        \(s^\star=0\).  Hence \(x^\star=1\), so the unconstrained reformulation
+        recovers the same solution.
+        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \paragraph{(d) KKT without LICQ.}
+        Consider
+        \[
+        \min_{x\in\mathbb R}\;x
+        \quad\text{s.t.}\quad 
+        \underbrace{x}_{g_1(x)}=0,\;
+        \underbrace{2x}_{g_2(x)}=0.
+        \]
+        Both constraints are active at \(x^\star=0\) and \(g_1,g_2\) are
+        \emph{linear}, so KKT holds with multipliers \(\lambda_1^\star=1\),
+        \(\lambda_2^\star=-1\).
+        However, \(\nabla g_1(0)=(1)\) and \(\nabla g_2(0)=(2)\) are linearly
+        \emph{dependent}; the LICQ fails even though all KKT conditions are met.
+
+    
+\end{document}
