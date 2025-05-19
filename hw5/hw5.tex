@@ -1,0 +1,89 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsthm}
+\newtheoremstyle{mystyle}{}{}{\normalfont}{}{\bfseries}{}{\newline}{}{\bfseries}
+\theoremstyle{mystyle}
+\newtheorem{problem}{Problem}
+\newtheorem*{solution}{Solution}
+
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\usepackage{biblatex}
+
+
+
+\geometry{letterpaper, margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{MATH 258A — Spring 2025}
+\lhead{Santiago Morales}
+\rfoot{Page \thepage}
+
+\title{\vspace{-1cm} \textbf{Homework 4, MAT 258A}}
+\author{Santiago Morales \\ UC Davis \\ \texttt{moralesduarte@ucdavis.edu}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\vspace{-1em}
+\hrule
+\vspace{1em}
+
+\begin{problem}[5]
+Prove that given a finite collection of vertical segments in the plane, if for every three segments there is a line intersecting them, there exists a line intersecting them all.
+\end{problem}
+        
+\begin{solution}
+        Let each vertical segment in the plane be located at \(x = x_i\) with endpoints \((x_i, a_i)\) and \((x_i, b_i)\), where \(a_i \leq b_i\). Consider a line given by \(y = mx + b\). For this line to intersect the segment at \(x = x_i\), we require:
+        \[
+        a_i \leq mx_i + b \leq b_i.
+        \]
+        This is equivalent to the condition:
+        \[
+        a_i - mx_i \leq b \leq b_i - mx_i.
+        \]
+        For fixed \(x_i, a_i, b_i\), this describes a strip in the \((m, b)\)-plane between two affine functions of \(m\). Therefore, the set of all \((m, b)\) such that the line intersects this vertical segment is convex—it is the intersection of two closed half-planes, hence a convex set.
+        
+        Now, associate to each vertical segment the corresponding convex set in \((m, b)\)-space of lines that intersect it. The assumption that every three segments admit a line intersecting all three translates to the fact that any three of these convex sets have nonempty intersection.
+        
+        By Helly’s Theorem in \(\mathbb{R}^2\), if every three sets in a finite family of convex sets have nonempty intersection, then the entire family has nonempty intersection. Hence, there exists a common \((m, b)\) such that the line \(y = mx + b\) intersects all the vertical segments.
+        
+        Therefore, such a line exists.
+\end{solution}
+
+\begin{problem}[13]
+(Estimation of probability distribution). A random variable \(\xi\) has possible values \(\xi_1, \ldots, \xi_n\), but the corresponding probabilities \(p_1, \ldots, p_n\) are unknown. Formulate the problem of finding \(p_1, \ldots, p_n\) such that the variance of \(\xi\) is maximized, the expected value of \(\xi\) is between \(\alpha\) and \(\beta\), the probabilities sum to one and no probability is less than \(0.01/n\). Reformulate the resulting model as a minimization problem and check convexity.
+
+\emph{(Just in case, the variance of \(\xi\) is \(\sum_{j=1}^n p_j \xi_j^2 - \left(\sum_{j=1}^n p_j \xi_j\right)^2\).}
+\end{problem}
+
+\begin{solution}
+        We are given values \(\xi_1, \ldots, \xi_n\) and aim to choose probabilities \(p_1, \ldots, p_n\) to maximize the variance of \(\xi\), subject to:
+        \begin{align*}
+        & \sum_{j=1}^n p_j = 1, \quad p_j \geq \frac{0.01}{n} \text{ for all } j, \\
+        & \alpha \leq \sum_{j=1}^n p_j \xi_j \leq \beta.
+        \end{align*}
+        The variance is given by:
+        \[
+        \text{Var}(\xi) = \sum_{j=1}^n p_j \xi_j^2 - \left( \sum_{j=1}^n p_j \xi_j \right)^2.
+        \]
+        This is a concave function of \(p\), since the first term is linear and the second term is convex (the square of a linear function), and we are subtracting it.
+        
+        We can equivalently minimize the negative variance:
+        \[
+        \min_{p} \left( \left( \sum_{j=1}^n p_j \xi_j \right)^2 - \sum_{j=1}^n p_j \xi_j^2 \right),
+        \]
+        subject to the same constraints.
+        
+        The feasible region defined by the constraints is convex: it is the intersection of a probability simplex (defined by the normalization and lower bound constraints) and two affine constraints on the expected value. The objective function to be minimized is convex, as it is the square of a linear function minus a linear term. Therefore, this is a convex quadratic optimization problem.
+\end{solution}
+
+    
+\end{document}
